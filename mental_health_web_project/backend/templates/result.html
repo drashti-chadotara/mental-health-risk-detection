@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mental Health Result</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg,#f4f7fb,#eaf0ff);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .result-card {
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            background: #fff;
+        }
+
+        .risk-badge {
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .low { background:#d1f7d6; color:#0f5132; }
+        .moderate { background:#fff3cd; color:#664d03; }
+        .high { background:#f8d7da; color:#842029; }
+
+        .suggestion-card {
+            background: #f9faff;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container py-5">
+<div class="col-lg-8 mx-auto">
+
+<div class="result-card text-center">
+
+    <h2>{{ greeting }}</h2>
+
+    {% if risk_level == "Low Risk" %}
+        <div class="risk-badge low mt-3">🟢 Low Risk</div>
+    {% elif risk_level == "Moderate Risk" %}
+        <div class="risk-badge moderate mt-3">🟡 Moderate Risk</div>
+    {% else %}
+        <div class="risk-badge high mt-3">🔴 High Risk</div>
+    {% endif %}
+
+    <p class="text-muted mt-3">{{ message }}</p>
+
+    <img src="/images/{{ image }}" class="img-fluid rounded-4 my-4"
+         style="max-height:280px;">
+
+    <h5 class="mt-4 mb-3">✨ Recommended Actions</h5>
+
+    <div class="text-start">
+        {% for tip in suggestions %}
+        <div class="suggestion-card">
+            ✔️ {{ tip }}
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="mt-4">
+        <h6 class="mb-2">🎥 Helpful Video</h6>
+        <iframe width="100%" height="300"
+                src="{{ video }}"
+                allowfullscreen
+                class="rounded-4 shadow-sm"></iframe>
+    </div>
+
+    <a href="/" class="btn btn-outline-primary rounded-pill mt-4 px-4">
+        🔁 Check Again
+    </a>
+
+</div>
+
+</div>
+</div>
+
+</body>
+</html>

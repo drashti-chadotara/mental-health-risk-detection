@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mental Health Risk Check</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg,#eef2f7,#f9f9ff);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-weight: 700;
+            font-size: 3rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        .hero img {
+            max-width: 100%;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* FORM CARD */
+        #formSection {
+            display: none;
+        }
+
+        .question-card {
+            border-radius: 15px;
+            padding: 15px;
+            background: #fff;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            margin-bottom: 20px;
+        }
+
+        .question-card label {
+            margin-right: 15px;
+            cursor: pointer;
+        }
+
+        footer {
+            background: #0d6efd;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- 🔷 HERO BANNER -->
+<section class="hero container">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <h1>Mental Health<br>Self-Assessment</h1>
+            <p>
+                Early identification of mental health risks using
+                lifestyle and behavioral pattern analysis.
+            </p>
+
+            <button id="startBtn" class="btn btn-primary btn-lg mt-3">
+                Start Your Check
+            </button>
+        </div>
+
+        <div class="col-md-6 text-center">
+            <!-- 🔴 HERO IMAGE (use your image here if you want) -->
+            <img src="/images/main.jpg" alt="Mental Health">
+        </div>
+    </div>
+</section>
+
+<!-- 🔷 FORM SECTION -->
+<section id="formSection" class="container pb-5">
+    <div class="col-lg-8 mx-auto">
+        <div class="card p-4 shadow-lg border-0 rounded-4">
+
+            <h3 class="text-center mb-1">📝 Mental Wellbeing Check</h3>
+            <p class="text-center text-muted mb-4">
+                Answer honestly. There are no right or wrong answers.
+            </p>
+
+            <form method="POST" action="/predict">
+
+                {% for q, name, ex, icon in [
+                ("Do you feel growing stress?","Growing_Stress","Feeling pressure or worry often","😟"),
+                ("Do you experience mood swings?","Mood_Swings","Sudden emotional changes","🎭"),
+                ("Do you spend many days indoors?","Days_Indoors","Rarely going outside","🏠"),
+                ("Do you struggle to cope daily?","Coping_Struggles","Daily tasks feel heavy","📉"),
+                ("Do you feel socially isolated?","Social_Weakness","Avoiding social interaction","👥"),
+                ("Have you lost interest in work or study?","Work_Interest","Low motivation levels","💼")
+                ] %}
+
+                <div class="question-card mb-4">
+                    <h5>{{ icon }} {{ q }}</h5>
+                    <small class="text-muted">{{ ex }}</small>
+
+                    <div class="mt-3 d-flex gap-3">
+                        <label class="option-box">
+                            <input type="radio" name="{{ name }}" value="2" required>
+                            <span>Yes</span>
+                        </label>
+
+                        <label class="option-box">
+                            <input type="radio" name="{{ name }}" value="1">
+                            <span>Sometimes</span>
+                        </label>
+
+                        <label class="option-box">
+                            <input type="radio" name="{{ name }}" value="0">
+                            <span>No</span>
+                        </label>
+                    </div>
+                </div>
+
+                {% endfor %}
+
+                <button type="submit" class="btn btn-success w-100 py-2 fs-5 rounded-pill">
+                    🔍 Analyze My Mental Health
+                </button>
+
+            </form>
+        </div>
+    </div>
+</section>
+
+<style>
+.question-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.option-box {
+    border: 2px solid #dee2e6;
+    border-radius: 30px;
+    padding: 10px 22px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.option-box input {
+    display: none;
+}
+
+.option-box:hover {
+    background: #f1f5ff;
+}
+
+.option-box input:checked + span {
+    font-weight: bold;
+    color: #0d6efd;
+}
+</style>
+
+
+<footer>
+    Mental Health Risk Detection System © 2026
+</footer>
+
+<!-- 🔷 ANIMATION SCRIPT -->
+<script>
+    $("#startBtn").click(function () {
+        $("html, body").animate({
+            scrollTop: $("#formSection").offset().top
+        }, 800);
+
+        $("#formSection").slideDown(800);
+    });
+</script>
+
+</body>
+</html>
